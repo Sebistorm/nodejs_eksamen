@@ -1,10 +1,32 @@
 import express from "express";
 const app = express();
 
+import session from "express-session"
+app.use(session({
+    secret: 'den firkantet lave hund',
+    resave: false,
+    saveUninitialized: false
+}));
+
+import { isAuth } from "./authorization/authorization.js"
+ 
+
+
 app.use(express.json());
+
+import adminRouter from "./routers/adminRouter.js";
+app.use(adminRouter);
 
 import clothesRouter from "./routers/clothesRouter.js";
 app.use(clothesRouter);
+
+app.get("/secret", isAuth, (req,res) => {
+    res.send({data: "very secret data"});
+})
+
+app.get("/error", (req,res) => {
+    res.send({data: "not auth"});
+})
 
 
 const PORT = process.env.PORT || 3000;
