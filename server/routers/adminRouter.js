@@ -14,16 +14,16 @@ router.post("/api/login", (req, res) => {
     connection.query("SELECT * FROM admin WHERE name = ?", [req.body.name], async function (error, results) {
         if(error) throw error;
         // if no users is found in the database
-        if(results == "") return res.send({data: "can't find user"});
+        if(results == "") return res.sendStatus(400);
 
         if(results) {
             const isSame = await bcrypt.compare(req.body.password, results[0].password);
             if (isSame) {
                 req.session.isAuth = true;
-                res.send({ data: "user found. User can be login" });
+                res.sendStatus(200);
             } 
             // if the password does not match with the user
-            if (!isSame) res.send({data: "wrong name or password"})
+            if (!isSame) res.sendStatus(400)
         }
     })
 });

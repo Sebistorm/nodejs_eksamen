@@ -1,6 +1,14 @@
 import express from "express";
 const app = express();
 
+app.use(express.json());
+
+import helmet from "helmet";
+app.use('/api', helmet());
+
+import path from "path";
+app.use(express.static(path.resolve("../client/public")));
+
 import session from "express-session"
 app.use(session({
     secret: 'den firkantet lave hund',
@@ -9,16 +17,15 @@ app.use(session({
 }));
 
 import { isAuth } from "./authorization/authorization.js"
- 
 
 
-app.use(express.json());
 
 import adminRouter from "./routers/adminRouter.js";
 app.use(adminRouter);
 
 import clothesRouter from "./routers/clothesRouter.js";
 app.use(clothesRouter);
+ 
 
 app.get("/secret", isAuth, (req,res) => {
     res.send({data: "very secret data"});
