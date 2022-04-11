@@ -6,7 +6,7 @@
 		password: null,
 	};
 	let errorMessage = false;
-
+    let errorMessageText;
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -22,23 +22,26 @@
 		body: userObjectString
 		}
 
-		fetch("/api/login", fetchOptions)
+		fetch("/api/signup", fetchOptions)
 		.then(data =>  {
 			if(data.status === 200) {
-			errorMessage = false;
+			errorMessage = true;
+            errorMessageText = "User created"
 			console.log("succes")
-			} else {
-				errorMessage = true;
-			}
+			} else if(data.status === 500) {
+                errorMessage = true;
+                errorMessageText = "Name already in use";
+                console.log("fail")
+            }
 		});
 	}
 
 </script>
 
-<h3>Login</h3>
+<h3>Signup</h3>
 <form method="post" on:submit={handleSubmit}>
 	{#if errorMessage}
-		<p>wrong name or password</p>
+		<p>{errorMessageText}</p>
 	{/if}
     <label for="name">Name</label>
 	<input

@@ -19,6 +19,7 @@ router.post("/api/login", (req, res) => {
         if(results) {
             const isSame = await bcrypt.compare(req.body.password, results[0].password);
             if (isSame) {
+                console.log("succes")
                 req.session.isAuth = true;
                 res.sendStatus(200);
             } 
@@ -36,8 +37,13 @@ router.post("/api/signup", async (req,res) => {
         sql:"INSERT INTO admin (name, password) VALUES(?,?)",
         values: [req.body.name, hashedPassword]
     }, async (error, results) => {
-        if(error) throw error;
-        if(results) res.send({data: "admin succucfully signed up"})
+        if(error) {
+            if(error.code == "ER_DUP_ENTRY") {
+                return res.sendStatus(500)
+            }
+            throw error;
+        }
+        if(results) res.send({data: "admin succucfully signed up"});
     })           
 });
 
