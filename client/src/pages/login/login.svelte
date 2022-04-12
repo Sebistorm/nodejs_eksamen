@@ -1,12 +1,14 @@
 <script>
-	let password;
-	let name;
-	let user = {
-		name: null,
-		password: null,
-	};
-	let errorMessage = false;
+	import { useNavigate, useLocation } from "svelte-navigator";
+	
+	const navigate = useNavigate();
+	const location = useLocation();
 
+	import { user } from "../../store/generalStore";
+	let password;
+	let name; 
+
+	let errorMessage = false;
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -27,6 +29,9 @@
 			if(data.status === 200) {
 			errorMessage = false;
 			console.log("succes")
+			user.set({ name, password });
+			const from = ($location.state && $location.state.from) || "/dashboard";
+			navigate(from, { replace: true });
 			} else {
 				errorMessage = true;
 			}

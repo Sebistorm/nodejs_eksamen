@@ -1,4 +1,9 @@
 <script>
+	import { useNavigate, useLocation } from "svelte-navigator";
+	
+	const navigate = useNavigate();
+	const location = useLocation();
+
 	let password;
 	let name;
 	let user = {
@@ -28,6 +33,8 @@
 			errorMessage = true;
             errorMessageText = "User created"
 			console.log("succes")
+			const from = ($location.state && $location.state.from) || "/login";
+			navigate(from, { replace: true });
 			} else if(data.status === 500) {
                 errorMessage = true;
                 errorMessageText = "Name already in use";

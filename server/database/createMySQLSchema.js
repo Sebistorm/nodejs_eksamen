@@ -10,15 +10,30 @@ if (deleteMode) {
 db.query(`
 CREATE TABLE IF NOT EXISTS clothes(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(60)
+    title VARCHAR(60),
+    category VARCHAR(60),
+    price INT
 )
 `);
 
 // Seed my database
 if (deleteMode) {
-    db.query(`INSERT INTO clothes (title) VALUES ('Polo')`);
-    db.query(`INSERT INTO clothes (title) VALUES ('Bukser')`);
-    db.query(`INSERT INTO clothes (title) VALUES ('Sokker')`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('The Packable Jacket','Jackets', 150)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('The Iconic Field Jacket','Jackets', 150)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Ventile Wading Jacket','Jackets', 150)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('The Earth Polo','Polo Shirts', 70)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Slim Fit Mesh Polo Shirt','Polo Shirts', 70)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Cashmere Polo-Collar Jumper','Polo Shirts', 70)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Terry Crewneck T-Shirt','T-Shirts', 100)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Doeskin Blazer','Blazers', 120)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Soft Herringbone','Blazers', 120)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Soft Knit Piqué','Blazers', 120)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Sullivan Slim Stretch','Jeans', 100)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Eldridge Skinny Stretch','Jeans', 100)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Varick Slim Straight Jean','Jeans', 100)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Lightweight Wool Suit','Suits', 250)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Wool Twill Suit','Suits', 250)`);
+    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Shawl Tuxedo Jacket','Suits', 250)`);
 }
 
 // seeds for admin table
