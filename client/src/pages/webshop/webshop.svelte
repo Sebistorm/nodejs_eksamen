@@ -7,9 +7,8 @@
     onMount(async () => {
 		const response = await fetch("/api/clothes");
 		const { data } = await response.json();
-		console.log(data);
+		//console.log(data);
 		clothes = data;
-        console.log(clothes[0])
 	});
 </script>
 
@@ -20,7 +19,7 @@
 
       
         {#each clothes as cloth }
-            <Cloth clothCategory="{cloth.category}" clothTitle="{cloth.title}" clothPrice="{cloth.price}" />
+            <Cloth clothCategory="{cloth.category}" clothTitle="{cloth.title}" clothPrice="{cloth.price}" clothID="{cloth.id}" />
 	    {/each}
 
     </div>
