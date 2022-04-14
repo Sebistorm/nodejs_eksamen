@@ -1,13 +1,11 @@
 <script>
     import { onMount } from "svelte";
+    import { toast } from '@zerodevx/svelte-toast'
     const url_string = window.location.pathname
     const urlArray = url_string.split("/");
     const clothid = urlArray[2];
     
     let cloth;
-
-    let userMessage = false;
-    let userMessageText;
 
     onMount(async () => {
 		const response = await fetch(`/api/clothes/${clothid}`);
@@ -42,8 +40,12 @@
 		fetch("/api/editCloth", fetchOptions)
 		.then(data =>  {
             if(data.status === 200) {
-                userMessageText = "Product has been updated"
-                userMessage = true;
+                toast.push('Success! The product has been updated', {
+                    theme: {
+                        '--toastBackground': '#48BB78',
+                        '--toastBarBackground': '#2F855A'
+                    }
+                });
             }
 		});
 	}
@@ -58,9 +60,6 @@
         </div>
         <div>
             <form on:submit={handleSubmit}>
-                {#if userMessage}
-                    <p>{userMessageText}</p>
-                {/if}
                 <label for="titleDisplay">Title</label>
                 <input type="text" id="titleDisplay">
 

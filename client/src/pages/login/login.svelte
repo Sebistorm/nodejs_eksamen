@@ -1,5 +1,6 @@
 <script>
 	import { useNavigate, useLocation } from "svelte-navigator";
+	import { toast } from '@zerodevx/svelte-toast'
 	
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -7,8 +8,6 @@
 	import { user } from "../../store/generalStore";
 	let password;
 	let name; 
-
-	let errorMessage = false;
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -27,13 +26,17 @@
 		fetch("/api/login", fetchOptions)
 		.then(data =>  {
 			if(data.status === 200) {
-			errorMessage = false;
 			console.log("succes")
 			user.set({ name, password });
 			const from = ($location.state && $location.state.from) || "/dashboard";
 			navigate(from, { replace: true });
 			} else {
-				errorMessage = true;
+				toast.push('Wrong password or name!', {
+					theme: {
+						'--toastBackground': '#F56565',
+						'--toastBarBackground': '#C53030'
+					}
+				})
 			}
 		});
 	}
@@ -42,9 +45,6 @@
 
 <h3>Login</h3>
 <form method="post" on:submit={handleSubmit}>
-	{#if errorMessage}
-		<p>wrong name or password</p>
-	{/if}
     <label for="name">Name</label>
 	<input
 		bind:value={name}

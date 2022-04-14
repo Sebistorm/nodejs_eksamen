@@ -1,5 +1,6 @@
 <script>
 	import { useNavigate, useLocation } from "svelte-navigator";
+	import { toast } from '@zerodevx/svelte-toast'
 	
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -10,8 +11,6 @@
 		name: null,
 		password: null,
 	};
-	let errorMessage = false;
-    let errorMessageText;
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -30,14 +29,24 @@
 		fetch("/api/signup", fetchOptions)
 		.then(data =>  {
 			if(data.status === 200) {
-			errorMessage = true;
-            errorMessageText = "User created"
 			console.log("succes")
-			const from = ($location.state && $location.state.from) || "/login";
-			navigate(from, { replace: true });
+			toast.push('Success! The user has been created', {
+				theme: {
+					'--toastBackground': '#48BB78',
+					'--toastBarBackground': '#2F855A'
+				}
+            });
+			setTimeout(() => {
+				const from = ($location.state && $location.state.from) || "/login";
+				navigate(from, { replace: true });
+			}, 4100 );
 			} else if(data.status === 500) {
-                errorMessage = true;
-                errorMessageText = "Name already in use";
+				toast.push('The user already exists!', {
+					theme: {
+						'--toastBackground': '#F56565',
+						'--toastBarBackground': '#C53030'
+					}
+				})
                 console.log("fail")
             }
 		});
@@ -47,9 +56,6 @@
 
 <h3>Signup</h3>
 <form method="post" on:submit={handleSubmit}>
-	{#if errorMessage}
-		<p>{errorMessageText}</p>
-	{/if}
     <label for="name">Name</label>
 	<input
 		bind:value={name}

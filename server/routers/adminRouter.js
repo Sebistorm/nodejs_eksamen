@@ -7,6 +7,8 @@ import connection from "../database/createMySQLConnection.js"
 
 import { authLimiter } from "../authorization/authorization.js"
 
+import {transporter, options} from "../nodemailer/nodemailer.js"
+
 // authlimiter only run on those 2
 router.use(["/api/login", "/api/signup"], authLimiter)
 
@@ -43,7 +45,16 @@ router.post("/api/signup", async (req,res) => {
             }
             throw error;
         }
-        if(results) res.send({data: "admin succucfully signed up"});
+        if(results) {
+            transporter.sendMail(options, function(err, info) {
+                if(err) {
+                    console.log(err);
+                    return
+                }
+                console.log("Sent: " + info.response);
+                res.send({data: "admin succucfully signed up"});
+            });
+        } 
     })           
 });
 
