@@ -2,6 +2,8 @@ import { Router } from "express";
 const router = Router();
 import connection from "../database/createMySQLConnection.js"
 
+import {isAuth} from "../authorization/authorization.js";
+
 router.get("/api/clothes", async (req, res) => {
     connection.query("SELECT * FROM clothes", function (error, results) {
         if(error) throw error;
@@ -16,7 +18,7 @@ router.get("/api/clothes/:id", (req, res) => {
     })
 });
 
-router.put("/api/editCloth", (req, res) => {
+router.put("/api/editCloth", isAuth, (req, res) => {
     connection.query({
         sql:"UPDATE clothes SET title = ?, price = ?, category = ? WHERE id = ?",
         values: [req.body.title, req.body.price, req.body.category, req.body.id]
