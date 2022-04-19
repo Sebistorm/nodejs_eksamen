@@ -62,6 +62,7 @@
         column-gap: 2rem;
         max-width: 900px;
         margin: 0 auto;
+        margin-top: 50px;
     }
 
     .clothImg {

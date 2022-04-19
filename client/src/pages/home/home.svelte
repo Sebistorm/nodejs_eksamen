@@ -9,9 +9,10 @@
 		navigate(from, { replace: true });
 	}
 </script>
-
-<h1>Kalvin Clein</h1>
-<h3><button on:click={goToWebshop}>Webshop</button></h3>
+<div class="container">
+	<h1>Kalvin Clein</h1>
+	<h3><button on:click={goToWebshop}>Webshop</button></h3>
+</div>
 
 
 <style>

@@ -85,6 +85,11 @@
 
 <style>
 
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
     .clothImg {
         width: 100%;
     }
@@ -95,10 +100,11 @@
         column-gap: 2rem;
         max-width: 900px;
         margin: 0 auto;
+        margin-top: 50px;
     }
 
     label {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
  
 </style>

@@ -33,13 +33,19 @@
 <main>
 	<Router>
 			<nav>
-				<Link to="/">Home</Link>
-				<Link to="login">admin login</Link>
-				<Link to="signup">admin Signup</Link>
-				<Link to="webshop">Shop</Link>
-				{#if $user}
-					<Link to="dashboard">Dashboard</Link>
-            	{/if}
+				<div id="navbar" class="container">
+					<div class="left">
+						<Link to="/">Home</Link>
+						<Link to="webshop">Shop</Link>
+						{#if $user}
+							<Link to="dashboard">Dashboard</Link>
+						{/if}
+					</div>
+					<div class="right">
+						<Link to="login">admin login</Link>
+						<Link to="signup">admin Signup</Link>
+					</div>
+				</div>
 			</nav>
 
 			
@@ -93,7 +99,8 @@
 	}
 
 	:global(body) {
-		background-color: #edf0f5
+		background-color: #edf0f5;
+		padding: 0px;
 	}
 
 	@media screen and (max-width: 1140px) {
@@ -118,5 +125,21 @@
 		:global(.container) {
 		max-width: 540px;
 		}
+	}
+
+	#navbar {
+		display: flex;
+		justify-content: space-between;
+		
+	}
+
+	:global(#navbar a) {
+		color: white !important;
+		padding: 0px 10px
+	}
+
+	nav {
+    	background-color: #1B2A38;
+		padding: 20px 0px;
 	}
 </style>
