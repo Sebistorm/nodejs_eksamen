@@ -5,16 +5,18 @@
     const clothid = urlArray[2];
     
     let cloth;
-
+    let title;
+    let price;
+    let category;
     onMount(async () => {
 		const response = await fetch(`/api/clothes/${clothid}`);
 		const { data } = await response.json();
 		cloth = data[0];
         console.log(cloth)
 
-        document.getElementById("titleDisplay").innerText = cloth.title;
-        document.getElementById("priceDisplay").innerText = cloth.price + "€";
-        document.getElementById("categoryDisplay").innerText = cloth.category;
+        title = cloth.title;
+        price = cloth.price;
+        category = cloth.category_name;
 	});
 
     
@@ -26,9 +28,9 @@
             <img class="clothImg" src="https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$" alt="imgtext">
         </div>
         <div>
-            <h1 id="titleDisplay"> </h1>
-            <div id="priceDisplay"></div>
-            <div id="categoryDisplay"></div>   
+            <h1 id="titleDisplay">{title}</h1>
+            <div id="priceDisplay"> {price} €</div>
+            <div id="categoryDisplay">{category}</div>   
 
             <select>
                 <option>XS</option>

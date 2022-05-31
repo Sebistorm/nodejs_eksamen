@@ -2,6 +2,55 @@ import db from "./createMySQLConnection.js";
 
 const deleteMode = true;
 
+// Seed for categories
+if (deleteMode) {
+    db.query("DROP TABLE IF EXISTS cloth_categories")
+}
+
+db.query(`
+CREATE TABLE IF NOT EXISTS cloth_categories(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    category_name VARCHAR(60)
+)
+`);
+
+if (deleteMode) {
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Jackets')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Polo Shirts')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('T-Shirts')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Blazers')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Jeans')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Suits')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Socks')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('accessories')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Hoodies')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Trousers')`);
+    db.query(`INSERT INTO cloth_categories (category_name) VALUES ('Shoes')`);
+}
+
+
+// Seed for sizes
+if (deleteMode) {
+    db.query("DROP TABLE IF EXISTS cloth_sizes")
+}
+
+db.query(`
+CREATE TABLE IF NOT EXISTS cloth_sizes(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    size VARCHAR(60)
+)
+`);
+
+if (deleteMode) {
+    db.query(`INSERT INTO cloth_sizes (size) VALUES ('XS')`);
+    db.query(`INSERT INTO cloth_sizes (size) VALUES ('S')`);
+    db.query(`INSERT INTO cloth_sizes (size) VALUES ('M')`);
+    db.query(`INSERT INTO cloth_sizes (size) VALUES ('L')`);
+    db.query(`INSERT INTO cloth_sizes (size) VALUES ('XL')`);
+    db.query(`INSERT INTO cloth_sizes (size) VALUES ('XXL')`);
+}
+
+
 // seeds for clothes table
 if (deleteMode) {
     db.query("DROP TABLE IF EXISTS clothes;");
@@ -11,30 +60,32 @@ db.query(`
 CREATE TABLE IF NOT EXISTS clothes(
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(60),
-    category VARCHAR(60),
+    category_fk INT,
     price INT
 )
 `);
 
 // Seed my database
 if (deleteMode) {
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('The Packable Jacket','Jackets', 150)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('The Iconic Field Jacket','Jackets', 150)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Ventile Wading Jacket','Jackets', 150)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('The Earth Polo','Polo Shirts', 70)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Slim Fit Mesh Polo Shirt','Polo Shirts', 70)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Cashmere Polo-Collar Jumper','Polo Shirts', 70)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Terry Crewneck T-Shirt','T-Shirts', 100)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Doeskin Blazer','Blazers', 120)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Soft Herringbone','Blazers', 120)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Soft Knit Piqué','Blazers', 120)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Sullivan Slim Stretch','Jeans', 100)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Eldridge Skinny Stretch','Jeans', 100)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Varick Slim Straight Jean','Jeans', 100)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Lightweight Wool Suit','Suits', 250)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Wool Twill Suit','Suits', 250)`);
-    db.query(`INSERT INTO clothes (title, category, price) VALUES ('Polo Shawl Tuxedo Jacket','Suits', 250)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('The Packable Jacket','1', 150)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('The Iconic Field Jacket','1', 150)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Ventile Wading Jacket','1', 150)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('The Earth Polo','2', 70)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Slim Fit Mesh Polo Shirt','2', 70)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Cashmere Polo-Collar Jumper','2', 70)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Terry Crewneck T-Shirt','3', 100)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Doeskin Blazer','4', 120)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Soft Herringbone','4', 120)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Soft Knit Piqué','4', 120)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Sullivan Slim Stretch','5', 100)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Eldridge Skinny Stretch','5', 100)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Varick Slim Straight Jean','5', 100)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Lightweight Wool Suit','6', 250)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Wool Twill Suit','6', 250)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Shawl Tuxedo Jacket','6', 250)`);
 }
+
+// TODO: Many-to-Many Clothes_Sizes
 
 // seeds for admin table
 

@@ -5,14 +5,14 @@ import connection from "../database/createMySQLConnection.js"
 import {isAuth} from "../authorization/authorization.js";
 
 router.get("/api/clothes", async (req, res) => {
-    connection.query("SELECT * FROM clothes", function (error, results) {
+    connection.query("SELECT clothes.id, clothes.title, clothes.price, cloth_categories.category_name FROM clothes JOIN cloth_categories ON clothes.category_fk = cloth_categories.id", function (error, results) {
         if(error) throw error;
         if(results) res.send({ data: results });
     })
 });
 
 router.get("/api/clothes/:id", (req, res) => {
-    connection.query("SELECT * FROM clothes WHERE id = ?", [req.params.id], function (error, results) {
+    connection.query("SELECT clothes.id, clothes.title, clothes.price, cloth_categories.category_name FROM clothes JOIN cloth_categories ON clothes.category_fk = cloth_categories.id WHERE clothes.id = ?", [req.params.id], function (error, results) {
         if(error) throw error;
         if(results) res.send({ data: results });
     })
