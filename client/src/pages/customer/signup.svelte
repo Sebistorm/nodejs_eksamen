@@ -5,14 +5,14 @@
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	import { user } from "../../store/generalStore";
-	let password;
-	let name; 
+	let user = {
+		name: null,
+        email: null,
+		password: null
+	};
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		user.name = name;
-		user.password = password
 		let userObjectString = JSON.stringify(user);
 
 		const fetchOptions = {
@@ -23,53 +23,68 @@
 		body: userObjectString
 		}
 
-		fetch("/api/login", fetchOptions)
+		fetch("/api/customerSignup", fetchOptions)
 		.then(data =>  {
 			if(data.status === 200) {
-			console.log("succes")
-			user.set({ name, password });
-			const from = ($location.state && $location.state.from) || "/dashboard";
-			navigate(from, { replace: true });
-			} else {
-				toast.push('Wrong password or name!', {
+				console.log("succes")
+				toast.push('Success! The user has been created', {
+					theme: {
+						'--toastBackground': '#48BB78',
+						'--toastBarBackground': '#2F855A'
+					}
+				});
+			setTimeout(() => {
+				const from = ($location.state && $location.state.from) || "/customerlogin";
+				navigate(from, { replace: true });
+			}, 4100 );
+			} else if(data.status === 500) {
+				toast.push('The user already exists!', {
 					theme: {
 						'--toastBackground': '#F56565',
 						'--toastBarBackground': '#C53030'
 					}
 				})
-			}
+                console.log("fail")
+            }
 		});
 	}
 
 </script>
 
-<div id="loginCompontent" class="container">
+<div id="signupCompontent" class="container">
 	<form method="post" on:submit={handleSubmit}>
-		<h3>Login</h3>
+		<h3>Signup</h3>
 		<label for="name">Name</label>
 		<input
-			bind:value={name}
+			bind:value={user.name}
 			type="text"
 			name="name"
 			placeholder="name"
 		/>
+        <label for="email">Email</label>
+		<input
+			bind:value={user.email}
+			type="text"
+			name="email"
+			placeholder="email"
+		/>
 		<label for="password">Password</label>
 		<input
-			bind:value={password}
+			bind:value={user.password}
 			type="password"
 			name="password"
 			placeholder="Password"
 		/>
-		<button type="submit">Login</button>
+		<button type="submit">Signup</button>
 	</form>
 </div>
 
-<style>
 
-#loginCompontent {
+<style>
+#signupCompontent {
 	display: flex;
     align-items: center;
-    min-height: calc(100vh - 61px);
+    min-height: calc(100vh - 62px);
 }
 
 
@@ -110,5 +125,4 @@ h3 {
 label {
 	margin-bottom: 5px;
 }
-
 </style>

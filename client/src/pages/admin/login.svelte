@@ -5,18 +5,15 @@
 	const navigate = useNavigate();
 	const location = useLocation();
 
+	import { admin } from "../../store/generalStore";
 	let password;
-	let name;
-	let user = {
-		name: null,
-		password: null,
-	};
+	let name; 
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		user.name = name;
-		user.password = password
-		let userObjectString = JSON.stringify(user);
+		admin.name = name;
+		admin.password = password
+		let userObjectString = JSON.stringify(admin);
 
 		const fetchOptions = {
 		method: "POST",
@@ -26,37 +23,28 @@
 		body: userObjectString
 		}
 
-		fetch("/api/signup", fetchOptions)
+		fetch("/api/login", fetchOptions)
 		.then(data =>  {
 			if(data.status === 200) {
-			console.log("succes")
-			toast.push('Success! The user has been created', {
-				theme: {
-					'--toastBackground': '#48BB78',
-					'--toastBarBackground': '#2F855A'
-				}
-            });
-			setTimeout(() => {
-				const from = ($location.state && $location.state.from) || "/login";
-				navigate(from, { replace: true });
-			}, 4100 );
-			} else if(data.status === 500) {
-				toast.push('The user already exists!', {
+			admin.set({ name });
+			const from = ($location.state && $location.state.from) || "/dashboard";
+			navigate(from, { replace: true });
+			} else {
+				toast.push('Wrong password or name!', {
 					theme: {
 						'--toastBackground': '#F56565',
 						'--toastBarBackground': '#C53030'
 					}
 				})
-                console.log("fail")
-            }
+			}
 		});
 	}
 
 </script>
 
-<div id="signupCompontent" class="container">
+<div id="loginCompontent" class="container">
 	<form method="post" on:submit={handleSubmit}>
-		<h3>Signup</h3>
+		<h3>Login</h3>
 		<label for="name">Name</label>
 		<input
 			bind:value={name}
@@ -75,12 +63,12 @@
 	</form>
 </div>
 
-
 <style>
-#signupCompontent {
+
+#loginCompontent {
 	display: flex;
     align-items: center;
-    min-height: calc(100vh - 61px);
+    min-height: calc(100vh - 62px);
 }
 
 
@@ -121,4 +109,5 @@ h3 {
 label {
 	margin-bottom: 5px;
 }
+
 </style>

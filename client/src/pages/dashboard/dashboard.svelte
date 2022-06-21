@@ -1,13 +1,13 @@
 <script>
-    import {user} from "../../store/generalStore";
+    import {admin} from "../../store/generalStore";
     
     function handleLogout() {
-		$user = null;
-	}
+		  $admin = null;
+	  }
 </script>
 <div class="container">
   <h1>Dashboard</h1>
-  <p>admin stuff. Welcome {user.name}</p>
+  <p>admin stuff. Welcome {admin.name}</p>
   <button on:click={handleLogout}>Logout</button>
 </div>
 

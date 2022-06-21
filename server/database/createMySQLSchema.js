@@ -85,7 +85,41 @@ if (deleteMode) {
     db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Shawl Tuxedo Jacket','6', 250)`);
 }
 
-// TODO: Many-to-Many Clothes_Sizes
+// customers
+if (deleteMode) {
+    db.query("DROP TABLE IF EXISTS customers;");
+}
+
+db.query(`
+CREATE TABLE IF NOT EXISTS customers(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(60),
+    email VARCHAR(120) UNIQUE,
+    password VARCHAR(60)
+)
+`);
+
+// Seed my database
+if (deleteMode) {
+    db.query(`INSERT INTO customers (name, email, password) VALUES ('CustomerA', "a@gmail.com", '$2b$12$9yx5V7pkxGJinWMGsqt4QOEZuuSX1uDI2Me.uzQlxfQhhHHP3SAbC')`);
+    db.query(`INSERT INTO customers (name, email, password) VALUES ('CustomerB', "b@gmail.com", '$2b$12$9yx5V7pkxGJinWMGsqt4QOEZuuSX1uDI2Me.uzQlxfQhhHHP3SAbC')`);
+    db.query(`INSERT INTO customers (name, email, password) VALUES ('CustomerC', "c@gmail.com", '$2b$12$9yx5V7pkxGJinWMGsqt4QOEZuuSX1uDI2Me.uzQlxfQhhHHP3SAbC')`);
+}
+
+// Cart
+if (deleteMode) {
+    db.query("DROP TABLE IF EXISTS cart;");
+}
+
+db.query(`
+CREATE TABLE IF NOT EXISTS cart(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cloth_fk INT,
+    customer_fk INT,
+    clothSize_fk INT
+)
+`); 
+
 
 // seeds for admin table
 

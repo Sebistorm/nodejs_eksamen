@@ -1,15 +1,19 @@
 <script>
 	import { Router, Route, Link } from "svelte-navigator";
 	import PrivateRoute from "./component/privateRoute/PrivateRoute.svelte";
-	import { user } from "./store/generalStore";
+	import { user, admin } from "./store/generalStore";
 
 	import Home from "./pages/home/home.svelte";
-	import Login from "./pages/login/login.svelte"
-	import Signup from "./pages/signup/signup.svelte";
+	import AdminLogin from "./pages/admin/login.svelte"
+	import AdminSignup from "./pages/admin/signup.svelte";
 	import Dashboard from "./pages/dashboard/dashboard.svelte";
 	import Webshop from "./pages/webshop/webshop.svelte";
 	import SingleViewCloth from "./pages/webshop/singleViewCloth.svelte";
 	import EditSingleViewCloth from "./pages/webshop/editSingleViewCloth.svelte";
+	import CustomerSignup from "./pages/customer/signup.svelte";
+	import CustomerLogin from "./pages/customer/login.svelte";
+	import CustomerProfile from "./pages/customer/profile.svelte";
+	import Cart from "./pages/cart/cart.svelte";
 
 
 	import { SvelteToast } from '@zerodevx/svelte-toast'
@@ -26,6 +30,10 @@
 		classes: []           // user-defined classes
 	}	
 
+	function handleLogout() {
+		  $user = null;
+	}
+
 </script>
 
 
@@ -37,26 +45,51 @@
 					<div class="left">
 						<Link to="/">Home</Link>
 						<Link to="webshop">Shop</Link>
-						{#if $user}
+						{#if $admin}
 							<Link to="dashboard">Dashboard</Link>
 						{/if}
 					</div>
 					<div class="right">
-						<Link to="login">admin login</Link>
-						<Link to="signup">admin Signup</Link>
+						<Link to="adminLogin">admin login</Link>
+						<Link to="adminSignup">admin Signup</Link>
+						
+						{#if !$user}
+						<Link to="customerLogin">Customer Login</Link>
+						{/if}
+
+						{#if !$user}
+						<Link to="customerSignup">Customer Signup</Link>
+						{/if}
+
+						{#if $user}
+							<Link to="customerProfile">Profile</Link>
+						{/if}
+
+						{#if $user}
+							<span style="color: white; cursor:pointer;" on:click={handleLogout}>Logout</span>
+						{/if}
+
+						<Link to="cart">Cart</Link>
 					</div>
 				</div>
 			</nav>
 
 			
 				<Route path="/" component={Home}/>
-				<Route path="login" component={Login} />
-				<Route path="signup" component={Signup} />
+				<Route path="adminLogin" component={AdminLogin} />
+				<Route path="adminSignup" component={AdminSignup} />
+				<Route path="customerSignup" component={CustomerSignup} />
+				<Route path="customerLogin" component={CustomerLogin} />
 				<Route path="webshop" component={Webshop} />
 				<Route path="cloth/:id" component={SingleViewCloth} />
+				<Route path="cart" component={Cart} />
 
 			<PrivateRoute path="dashboard" let:location>
 				<Dashboard></Dashboard>
+			</PrivateRoute>
+
+			<PrivateRoute path="customerProfile" let:location>
+				<CustomerProfile></CustomerProfile>
 			</PrivateRoute>
 
 			<PrivateRoute path="editCloth/:id" let:location>

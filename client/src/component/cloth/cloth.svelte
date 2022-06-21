@@ -1,5 +1,5 @@
 <script>
-    import { user } from "../../store/generalStore";
+    import { admin } from "../../store/generalStore";
     import { Link } from "svelte-navigator";
     export let clothCategory;
     export let clothTitle;
@@ -28,7 +28,7 @@
             <p>{clothPrice}€</p>
         </div>
     </Link>
-    {#if $user}
+    {#if $admin}
         <button on:click={goToEditACloth}>Edit</button>
     {/if}
 </div>

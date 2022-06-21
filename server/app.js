@@ -23,8 +23,14 @@ import { isAuth } from "./authorization/authorization.js"
 import adminRouter from "./routers/adminRouter.js";
 app.use(adminRouter);
 
+import customerRouter from "./routers/customersRouter.js";
+app.use(customerRouter);
+
 import clothesRouter from "./routers/clothesRouter.js";
 app.use(clothesRouter);
+
+import cartRouter from "./routers/cartRouter.js";
+app.use(cartRouter);
  
 
 app.get("/secret", isAuth, (req,res) => {

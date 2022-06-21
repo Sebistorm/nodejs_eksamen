@@ -26,6 +26,21 @@ router.put("/api/editCloth", isAuth, (req, res) => {
         if(error) throw error;
         if(results) res.sendStatus(200);
     }) 
-})
+});
+
+router.get("/api/similarclothes/:category", (req, res) => {
+    console.log(req.params.category);
+    connection.query("SELECT clothes.id, clothes.title, clothes.price, cloth_categories.category_name FROM clothes JOIN cloth_categories ON clothes.category_fk = cloth_categories.id WHERE cloth_categories.category_name = ? ORDER BY RAND() LIMIT 6", [req.params.category], function (error, results) {
+        if(error) throw error;
+        if(results) res.send({ carouselItemsData: results });
+    })
+});
+
+router.get("/api/clothSizes", async (req, res) => {
+    connection.query("SELECT * FROM cloth_sizes", function (error, results) {
+        if(error) throw error;
+        if(results) res.send({ clothSizesData: results });
+    })
+});
 
 export default router;
