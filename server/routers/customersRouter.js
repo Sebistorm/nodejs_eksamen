@@ -9,7 +9,7 @@ import { authLimiter } from "../authorization/authorization.js"
 
 
 // authlimiter only run on those 2
-router.use(["/api/customerLogin", "/api/customerSignup"], authLimiter)
+router.use(["/api/customerLogin", "/api/customerSignup", "/api/deleteCustomer/:id"], authLimiter)
 
 router.post("/api/customerLogin", (req, res) => {
     connection.query("SELECT * FROM customers WHERE email = ?", [req.body.email], async function (error, results) {
@@ -20,8 +20,6 @@ router.post("/api/customerLogin", (req, res) => {
         if(results) {
             const isSame = await bcrypt.compare(req.body.password, results[0].password);
             if (isSame) {
-                console.log("succes")
-                console.log(results[0].name);
                 res.send({ customerName: results[0].name ,customerID: results[0].id });
             } 
             // if the password does not match with the user
@@ -50,9 +48,7 @@ router.post("/api/customerSignup", async (req,res) => {
     });           
 });
 
-router.get("/api/customerInfo/:id", (req, res) => {
-    console.log(req.params.id);
-    
+router.get("/api/customerInfo/:id", (req, res) => {    
     connection.query("SELECT email, name FROM customers WHERE id = ?", [req.params.id], function (error, results) {
         if(error) throw error;
         if(results) res.send({ data: results });

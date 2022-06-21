@@ -17,7 +17,6 @@
 		const response = await fetch(`/api/clothes/${clothid}`);
 		const { data } = await response.json();
 		cloth = data[0];
-        console.log(cloth);
         title = cloth.title;
         price = cloth.price;
         category = cloth.category_name;
@@ -25,7 +24,6 @@
 
         const responseSizes = await fetch("/api/clothCategories");
 		const { clothCategoriesData } = await responseSizes.json();
-        console.log(clothCategoriesData);
         clothCategories = clothCategoriesData;  
 
 	});
@@ -40,7 +38,6 @@
             price: price,
             category: parseInt(categoryValue.value)
         }
-        console.log(clothObject)
 		let clothObjectString = JSON.stringify(clothObject);
 
 		const fetchOptions = {

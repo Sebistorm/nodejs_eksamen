@@ -21,7 +21,6 @@ router.post("/api/login", (req, res) => {
         if(results) {
             const isSame = await bcrypt.compare(req.body.password, results[0].password);
             if (isSame) {
-                console.log("succes")
                 req.session.isAuth = true;
                 res.sendStatus(200);
             } 
@@ -48,10 +47,8 @@ router.post("/api/signup", async (req,res) => {
         if(results) {
             transporter.sendMail(options, function(err, info) {
                 if(err) {
-                    console.log(err);
                     return
                 }
-                console.log("Sent: " + info.response);
                 res.send({data: "admin succucfully signed up"});
             });
         } 

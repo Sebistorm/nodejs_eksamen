@@ -2,9 +2,7 @@ import { Router } from "express";
 const router = Router();
 import connection from "../database/createMySQLConnection.js"
 
-router.post("/api/addToCart", async (req, res) => {
-    console.log(req.body);
-    
+router.post("/api/addToCart", async (req, res) => {   
     connection.query({
         sql:"INSERT INTO cart (cloth_fk, customer_fk, clothSize_fk) VALUES(?,?,?)",
         values: [req.body.cloth_fk, req.body.customer_fk, req.body.clothSize_fk]

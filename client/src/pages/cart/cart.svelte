@@ -8,22 +8,18 @@
     let deliveryCost = 5;
     let grandTotal = 0;
 
-    console.log($user.customerID);
     let cartItems = [];
     onMount(async () => {
 		const response = await fetch(`/api/cart/${$user.customerID}`);
 		const { data } = await response.json();
-		console.log(data);
 		cartItems = data;
 
         cartItems.forEach(cartItem => {
             subtotal = subtotal + cartItem.price;
         });
-        console.log(subtotal);
         grandTotal = subtotal + deliveryCost;
 	});
 
-    console.log(cartItems);
 
     function buyItems () {
         console.log("buy now!")

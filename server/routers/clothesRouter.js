@@ -19,7 +19,6 @@ router.get("/api/clothes/:id", (req, res) => {
 });
 
 router.put("/api/editCloth", isAuth, (req, res) => {
-    console.log(req.body);
     connection.query({
         sql:"UPDATE clothes SET title = ?, price = ?, category_fk = ? WHERE id = ?",
         values: [req.body.title, req.body.price, req.body.category, req.body.id]
@@ -30,7 +29,6 @@ router.put("/api/editCloth", isAuth, (req, res) => {
 });
 
 router.get("/api/similarclothes/:category&&:clothid", (req, res) => {
-    console.log(req.params.category);
     connection.query("SELECT clothes.id, clothes.title, clothes.price, cloth_categories.category_name, clothes.imgSrc FROM clothes JOIN cloth_categories ON clothes.category_fk = cloth_categories.id WHERE cloth_categories.category_name = ? AND NOT clothes.id = ? ORDER BY RAND() LIMIT 6", [req.params.category, req.params.clothid], function (error, results) {
         if(error) throw error;
         if(results) res.send({ carouselItemsData: results });

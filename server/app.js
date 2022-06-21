@@ -41,11 +41,6 @@ app.use(clothesRouter);
 
 import cartRouter from "./routers/cartRouter.js";
 app.use(cartRouter);
- 
-
-app.get("/error", (req,res) => {
-    res.send({data: "not auth"});
-})
 
 
 const PORT = process.env.PORT || 3000;

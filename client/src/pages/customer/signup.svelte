@@ -43,7 +43,6 @@
 						'--toastBarBackground': '#C53030'
 					}
 				})
-                console.log("fail")
             }
 		});
 	}

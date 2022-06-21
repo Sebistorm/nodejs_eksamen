@@ -23,7 +23,6 @@
         getCloth(); 
         const responseSizes = await fetch("/api/clothSizes");
 		const { clothSizesData } = await responseSizes.json();
-        console.log(clothSizesData);
         clothSizes = clothSizesData;       
         getSimilarClothes();
 	});
@@ -32,7 +31,6 @@
         url_string = window.location.pathname;
         urlArray = url_string.split("/");
         clothid = urlArray[2];
-        console.log(clothid);
 
         getCloth();
         getSimilarClothes();
@@ -41,9 +39,7 @@
     async function getCloth() {
         const response = await fetch(`/api/clothes/${clothid}`);
         const { data } = await response.json();
-        console.log(data);
         cloth = data[0];
-        console.log(cloth)
 
         title = cloth.title;
         price = cloth.price;
@@ -55,7 +51,6 @@
         const responseCarouselItems = await fetch(`/api/similarclothes/${category}&&${clothid}`)
         const {carouselItemsData} = await responseCarouselItems.json();
         carouselItems = carouselItemsData
-        console.log(carouselItems)
     }
 
     let clothSize;
@@ -66,7 +61,6 @@
             clothSize_fk: clothSize.value
 
         }
-        console.log(cart)
 
         let cartObjectString = JSON.stringify(cart);
 
@@ -80,7 +74,6 @@
 
         fetch("/api/addToCart", fetchOptions)
         .then(data => {
-            console.log("hej");
             if(data.status === 200) {
                 toast.push('The product has been added to the cart', {
 					theme: {
