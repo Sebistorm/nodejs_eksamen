@@ -16,8 +16,6 @@ app.use(session({
     saveUninitialized: false
 }));
 
-import { isAuth } from "./authorization/authorization.js"
-
 import http from "http";
 const server = http.createServer(app);
 
@@ -44,10 +42,6 @@ app.use(clothesRouter);
 import cartRouter from "./routers/cartRouter.js";
 app.use(cartRouter);
  
-
-app.get("/secret", isAuth, (req,res) => {
-    res.send({data: "very secret data"});
-})
 
 app.get("/error", (req,res) => {
     res.send({data: "not auth"});

@@ -61,28 +61,29 @@ CREATE TABLE IF NOT EXISTS clothes(
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(60),
     category_fk INT,
-    price INT
+    price INT,
+    imgSrc VARCHAR(250)
 )
 `);
 
 // Seed my database
 if (deleteMode) {
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('The Packable Jacket','1', 150)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('The Iconic Field Jacket','1', 150)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Ventile Wading Jacket','1', 150)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('The Earth Polo','2', 70)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Slim Fit Mesh Polo Shirt','2', 70)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Cashmere Polo-Collar Jumper','2', 70)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Terry Crewneck T-Shirt','3', 100)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Doeskin Blazer','4', 120)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Soft Herringbone','4', 120)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Soft Knit Piqué','4', 120)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Sullivan Slim Stretch','5', 100)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Eldridge Skinny Stretch','5', 100)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Varick Slim Straight Jean','5', 100)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Lightweight Wool Suit','6', 250)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Wool Twill Suit','6', 250)`);
-    db.query(`INSERT INTO clothes (title, category_fk, price) VALUES ('Polo Shawl Tuxedo Jacket','6', 250)`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('The Packable Jacket', 1, 150, "https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('The Iconic Field Jacket', 1, 150, "https://www.rlmedia.io/is/image/PoloGSI/s7-5461_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Ventile Wading Jacket', 1, 150, "https://www.rlmedia.io/is/image/PoloGSI/s7-1435915_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('The Earth Polo', 2, 70, "https://www.rlmedia.io/is/image/PoloGSI/s7-1442535_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Slim Fit Mesh Polo Shirt', 2, 70, "https://www.rlmedia.io/is/image/PoloGSI/s7-1435473_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Cashmere Polo-Collar Jumper', 2, 70, "https://www.rlmedia.io/is/image/PoloGSI/s7-1379268_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Terry Crewneck T-Shirt', 3, 100, "https://www.rlmedia.io/is/image/PoloGSI/s7-1300650_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Polo Doeskin Blazer', 4, 120, "https://www.rlmedia.io/is/image/PoloGSI/s7-1369320_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Polo Soft Herringbone', 4, 120, "https://www.rlmedia.io/is/image/PoloGSI/s7-1358327_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Polo Soft Knit Piqué', 4, 120, "https://www.rlmedia.io/is/image/PoloGSI/s7-1397575_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Sullivan Slim Stretch', 5, 100, "https://www.rlmedia.io/is/image/PoloGSI/s7-1430478_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Eldridge Skinny Stretch', 5, 100, "https://www.rlmedia.io/is/image/PoloGSI/s7-1429392_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Varick Slim Straight Jean', 5, 100, "https://www.rlmedia.io/is/image/PoloGSI/s7-1442728_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Polo Lightweight Wool Suit', 6, 250, "https://www.rlmedia.io/is/image/PoloGSI/s7-1135849_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Polo Wool Twill Suit', 6, 250, "https://www.rlmedia.io/is/image/PoloGSI/s7-1435919_alternate10?$rl_df_pdp_5_7_a10$")`);
+    db.query(`INSERT INTO clothes (title, category_fk, price, imgSrc) VALUES ('Polo Shawl Tuxedo Jacket', 6, 250, "https://www.rlmedia.io/is/image/PoloGSI/s7-1449031_alternate10?$rl_df_pdp_5_7_a10$")`);
 }
 
 // customers

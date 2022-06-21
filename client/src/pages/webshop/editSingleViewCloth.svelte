@@ -6,27 +6,41 @@
     const clothid = urlArray[2];
     
     let cloth;
+    let title;
+    let price;
+    let category;
+    let imgSrc;
+
+    let clothCategories = [];
 
     onMount(async () => {
 		const response = await fetch(`/api/clothes/${clothid}`);
 		const { data } = await response.json();
 		cloth = data[0];
+        console.log(cloth);
+        title = cloth.title;
+        price = cloth.price;
+        category = cloth.category_name;
+        imgSrc = cloth.imgSrc;
 
-        document.getElementById("titleDisplay").value = cloth.title;
-        document.getElementById("priceDisplay").value = cloth.price;
-        document.getElementById("categoryDisplay").value = cloth.category;
+        const responseSizes = await fetch("/api/clothCategories");
+		const { clothCategoriesData } = await responseSizes.json();
+        console.log(clothCategoriesData);
+        clothCategories = clothCategoriesData;  
+
 	});
 
+    let categoryValue;
     async function handleSubmit(e) {
 		e.preventDefault();
 
         const clothObject = {
             id: cloth.id,
-            title: document.getElementById("titleDisplay").value, 
-            price: document.getElementById("priceDisplay").value,
-            category: document.getElementById("categoryDisplay").value
+            title: title, 
+            price: price,
+            category: parseInt(categoryValue.value)
         }
-		
+        console.log(clothObject)
 		let clothObjectString = JSON.stringify(clothObject);
 
 		const fetchOptions = {
@@ -56,18 +70,26 @@
 <div class="container">
     <div id="clothWrapper">
         <div>
-            <img class="clothImg" src="https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$" alt="imgtext">
+            <img class="clothImg" src="{imgSrc}" alt="imgtext">
         </div>
         <div>
             <form on:submit={handleSubmit}>
                 <label for="titleDisplay">Title</label>
-                <input type="text" id="titleDisplay">
+                <input bind:value="{title}" type="text" id="titleDisplay">
 
                 <label for="priceDisplay">Price</label>
-                <input type="text" id="priceDisplay">
+                <input bind:value="{price}" type="text" id="priceDisplay">
 
-                <label for="categoryDisplay">Category</label>
-                <input type="text" id="categoryDisplay">
+                <label for="category">Category</label>
+                <select bind:this="{categoryValue}" id="category">
+                    {#each clothCategories as clothCategory}
+                        {#if clothCategory.category_name === category}
+                            <option selected value="{clothCategory.id}">{clothCategory.category_name}</option>
+                        {:else}
+                            <option value="{clothCategory.id}">{clothCategory.category_name}</option>    
+                        {/if} 
+                    {/each}
+                </select>
 
                 <button type="submit">Save</button>
             </form>
@@ -105,6 +127,21 @@
 
     label {
         font-size: 1.5rem;
+    }
+
+    button {
+        background-color: black;
+        color: white;
+        width: 100%;
+        cursor: pointer;
+        margin-top: 0.3125rem;
+        transition: all 1s;
+        border: 2px solid black;
+    }
+
+    button:hover {
+        background-color: white;
+        color: black;
     }
  
 </style>

@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Cloth from "../../component/cloth/cloth.svelte";
+    import Footer from "../../component/footer/footer.svelte";
 
     export let clothes = [];
 
@@ -19,12 +20,14 @@
 
       
         {#each clothes as cloth }
-            <Cloth clothCategory="{cloth.category_name}" clothTitle="{cloth.title}" clothPrice="{cloth.price}" clothID="{cloth.id}" />
+            <Cloth clothCategory="{cloth.category_name}" clothTitle="{cloth.title}" clothPrice="{cloth.price}" clothID="{cloth.id}" clothImg="{cloth.imgSrc}" />
 	    {/each}
 
     </div>
     
 </div>
+
+<Footer />
 
 
 
@@ -38,9 +41,11 @@
         grid-template-columns: 1fr 1fr 1fr 1fr;
         column-gap: 2rem;
         row-gap: 2rem;
+        padding-bottom: 5rem;
     }
 
     h1 {
-        margin-bottom: 20px;
+        padding: 2rem 0px;
+        text-align: center;
     }
 </style>

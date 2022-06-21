@@ -19,7 +19,7 @@ router.post("/api/addToCart", async (req, res) => {
 });
 
 router.get("/api/cart/:customerID", (req, res) => {
-    connection.query("SELECT clothes.title, clothes.price, cloth_sizes.size, cloth_categories.category_name FROM kalvin_clein.cart JOIN clothes ON cart.cloth_fk = clothes.id JOIN cloth_sizes ON cart.clothSize_fk = cloth_sizes.id JOIN cloth_categories ON clothes.category_fk = cloth_categories.id WHERE cart.customer_fk = ?", [req.params.customerID], function (error, results) {
+    connection.query("SELECT clothes.title, clothes.price, cloth_sizes.size, cloth_categories.category_name, clothes.imgSrc FROM kalvin_clein.cart JOIN clothes ON cart.cloth_fk = clothes.id JOIN cloth_sizes ON cart.clothSize_fk = cloth_sizes.id JOIN cloth_categories ON clothes.category_fk = cloth_categories.id WHERE cart.customer_fk = ?", [req.params.customerID], function (error, results) {
         if(error) throw error;
         if(results) res.send({ data: results });
     })

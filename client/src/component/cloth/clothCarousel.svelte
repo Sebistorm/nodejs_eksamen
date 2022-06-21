@@ -3,11 +3,13 @@
     export let title;
     export let price;
     export let id;
+    export let imgSrc
+
 </script>
 
 <div class="carouselItem">
     <Link class="clothLink" to="/cloth/{id}">
-        <img src="https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$" alt="bla bla">
+        <img src="{imgSrc}" alt="bla bla">
         <p>{price}€</p>
         <p>{title}</p>
     </Link>

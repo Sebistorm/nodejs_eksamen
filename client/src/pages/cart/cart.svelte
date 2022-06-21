@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import {user} from "../../store/generalStore";
     import ClothItem from "../../component/cart/clothItem.svelte";
+    import Footer from "../../component/footer/footer.svelte";
 
     let subtotal = 0;
     let deliveryCost = 5;
@@ -35,7 +36,7 @@
     <div class="wrapper">
       <div class="clothes">
           {#each cartItems as cartItem}
-          <ClothItem title="{cartItem.title}" category="{cartItem.category_name}" size="{cartItem.size}" price={cartItem.price} />
+          <ClothItem title="{cartItem.title}" category="{cartItem.category_name}" size="{cartItem.size}" price={cartItem.price} imgSrc="{cartItem.imgSrc}" />
           {/each}
       </div>
       <div class="cartOverview">
@@ -60,6 +61,8 @@
     </div>
 </div>
 
+<Footer />
+
 <style>
     h1 {
         margin: 2rem 0px 1rem;
@@ -67,6 +70,7 @@
 
     .wrapper {
         display: flex;
+        margin-bottom: 4rem;
     }
 
     .clothes {

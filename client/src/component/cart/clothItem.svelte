@@ -3,13 +3,14 @@
     export let category;
     export let size;
     export let price;
+    export let imgSrc;
 
     
 </script>
 
 <div class="cloth">
     <div class="left">
-        <img src="https://calvinklein-eu.scene7.com/is/image/CalvinKleinEU/J30J320217_YAF_main?$vertical$" alt="">
+        <img src="{imgSrc}" alt="">
         <div class="info">
             <p class="title">{title}</p>
             <p class="category">{category}</p>
@@ -36,7 +37,7 @@
     }
 
     img {
-        width: 8rem;
+        width: 6rem;
     }
 
     .info {

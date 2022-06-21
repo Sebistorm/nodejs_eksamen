@@ -5,6 +5,7 @@
     export let clothTitle;
     export let clothPrice;
     export let clothID;
+    export let clothImg = "https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$";
 
     import { useNavigate, useLocation } from "svelte-navigator";
 	
@@ -21,7 +22,7 @@
 
 <div class="cloth">
     <Link class="clothLink" to="/cloth/{clothID}">
-        <img class="clothImg" src="https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$" alt="imgtext">
+        <img class="clothImg" src="{clothImg}" alt="imgtext">
         <div class="textwrapper">
             <p>{clothCategory}</p>
             <p>{clothTitle}</p>

@@ -42,16 +42,19 @@
 	<Router>
 			<nav>
 				<div id="navbar" class="container">
-					<div class="left">
+					<div class="left" style="display:flex; align-items:center;">
+						<Link to="/"><img style="width:30px;" src="https://uc099dee3328d062957586479af9.previews.dropboxusercontent.com/p/thumb/ABl8dGWVw-5UROgVRBOnzhzz7Aw6_MBoXxiDd_oHrJDpTO87LZru2LIEGEiuAdSEYClOizHm_6JzNIu180ZF5CxCxNnzsD4odkzn9q9dBWna6a0x54GY9BgT2U_QYMbdFKhgxpvqjV4fqSG561iou4JpfdV3p-8HiUwuwKzezJ3SKF9LA4rklrk7sAoA8uikb4b4pIujIPqhUJ7B-FYBjykZvbFxGnZgE8UT_ptiqB39aeuo2pP-qXvcQ7mkimPKOdVBNBST_wuIGU0b3zBHE5mbYfHeyN_8SYg1fNSKCEJJCFuybCoMk2G3sv8jZJW5fxTyphi7sQc8Kvroel1AZEj_4vTmtxB8jVMhEsMEeKXgRn2qqAijkVhCyYAZkZv0KoScaDT1U3mu97voh33_j6hqt27BnBZKqpA9fh5-XQmluw/p.png" alt="logo"></Link>
 						<Link to="/">Home</Link>
 						<Link to="webshop">Shop</Link>
 						{#if $admin}
 							<Link to="dashboard">Dashboard</Link>
 						{/if}
 					</div>
-					<div class="right">
+					<div class="right" style="display:flex; align-items:center;">
 						<Link to="adminLogin">admin login</Link>
-						<Link to="adminSignup">admin Signup</Link>
+						{#if $admin}
+							<Link to="adminSignup">admin Signup</Link>
+						{/if}
 						
 						{#if !$user}
 						<Link to="customerLogin">Customer Login</Link>
@@ -129,6 +132,10 @@
     	padding-left: 1rem;
     	margin-right: auto;
     	margin-left: auto;
+	}
+
+	:global(.container-fluid) {
+		width: 100%;
 	}
 
 	:global(body) {

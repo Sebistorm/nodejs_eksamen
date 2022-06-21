@@ -4,10 +4,12 @@
     import CarouselItem from "../../component/cloth/clothCarousel.svelte";
     import {user} from "../../store/generalStore";
     import { toast } from '@zerodevx/svelte-toast'
+    import Footer from "../../component/footer/footer.svelte";
 
-    const url_string = window.location.pathname;
-    const urlArray = url_string.split("/");
-    const clothid = urlArray[2];
+
+    let url_string = window.location.pathname;
+    let urlArray = url_string.split("/");
+    let clothid = urlArray[2];
 
     let carouselItems = [];
     let clothSizes = [];
@@ -16,31 +18,45 @@
     let title;
     let price;
     let category;
+    let imgSrc;
     onMount(async () => {
-		const response = await fetch(`/api/clothes/${clothid}`);
-		const { data } = await response.json();
+        getCloth(); 
+        const responseSizes = await fetch("/api/clothSizes");
+		const { clothSizesData } = await responseSizes.json();
+        console.log(clothSizesData);
+        clothSizes = clothSizesData;       
+        getSimilarClothes();
+	});
+
+    function updateCloth() {
+        url_string = window.location.pathname;
+        urlArray = url_string.split("/");
+        clothid = urlArray[2];
+        console.log(clothid);
+
+        getCloth();
+        getSimilarClothes();
+    }
+
+    async function getCloth() {
+        const response = await fetch(`/api/clothes/${clothid}`);
+        const { data } = await response.json();
         console.log(data);
-		cloth = data[0];
+        cloth = data[0];
         console.log(cloth)
 
         title = cloth.title;
         price = cloth.price;
         category = cloth.category_name;
+        imgSrc = cloth.imgSrc;
+    }
 
-        
-        const responseSizes = await fetch("/api/clothSizes");
-		const { clothSizesData } = await responseSizes.json();
-        console.log(clothSizesData);
-        clothSizes = clothSizesData;
-        
-
-        const responseCarouselItems = await fetch(`/api/similarclothes/${category}`)
+    async function getSimilarClothes() {
+        const responseCarouselItems = await fetch(`/api/similarclothes/${category}&&${clothid}`)
         const {carouselItemsData} = await responseCarouselItems.json();
         carouselItems = carouselItemsData
         console.log(carouselItems)
-
-
-	});
+    }
 
     let clothSize;
     function addToCart () {
@@ -84,7 +100,7 @@
 <div class="container">
     <div id="clothWrapper">
         <div>
-            <img class="clothImg" src="https://www.rlmedia.io/is/image/PoloGSI/s7-1429865_alternate10?$rl_df_pdp_5_7_a10$" alt="imgtext">
+            <img class="clothImg" src="{imgSrc}" alt="imgtext">
         </div>
         <div>
             <h1 id="titleDisplay">{title}</h1>
@@ -107,22 +123,23 @@
     
 </div>
 
-<div class="container" style="margin-top: 2rem;">
+<div class="container" style="margin-top: 2rem; margin-bottom:4rem;">
     <h2>Similar products</h2>
     <Carousel
     particlesToShow={3}
     particlesToScroll={1}
     >
-    {#each carouselItems as carouselItem} 
-        <CarouselItem price="{carouselItem.price}" title="{carouselItem.title}" id="{carouselItem.id}"/>
+    {#each carouselItems as carouselItem}
+        <div on:click="{updateCloth}"> 
+        <CarouselItem price="{carouselItem.price}" title="{carouselItem.title}" id="{carouselItem.id}" imgSrc="{carouselItem.imgSrc}"/>
+        </div>
     {/each}
         
     </Carousel>
-
 </div>
 
 
-
+<Footer />
 
 
 
