@@ -18,7 +18,19 @@ app.use(session({
 
 import { isAuth } from "./authorization/authorization.js"
 
+import http from "http";
+const server = http.createServer(app);
 
+import { Server } from "socket.io";
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+
+    socket.on("customerLoggedIn", ({ data }) => {
+        const username = data
+        io.emit("logCustomer", { username });
+    });
+});
 
 import adminRouter from "./routers/adminRouter.js";
 app.use(adminRouter);
@@ -43,6 +55,6 @@ app.get("/error", (req,res) => {
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log("server is running on port", PORT)
 })

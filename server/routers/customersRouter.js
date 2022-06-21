@@ -21,8 +21,8 @@ router.post("/api/customerLogin", (req, res) => {
             const isSame = await bcrypt.compare(req.body.password, results[0].password);
             if (isSame) {
                 console.log("succes")
-                //req.session.isAuth = true;
-                res.send({ customerID: results[0].id });
+                console.log(results[0].name);
+                res.send({ customerName: results[0].name ,customerID: results[0].id });
             } 
             // if the password does not match with the user
             if (!isSame) res.sendStatus(400)

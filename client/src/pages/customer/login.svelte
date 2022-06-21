@@ -1,6 +1,8 @@
 <script>
 	import { useNavigate, useLocation } from "svelte-navigator";
 	import { toast } from '@zerodevx/svelte-toast'
+	import io from "socket.io-client";
+	const socket = io();
 	
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -29,6 +31,7 @@
 			const customerID = result.customerID;
 			if(data.status === 200) {
 				user.set({ customerID });
+				socket.emit("customerLoggedIn", { data: result.customerName });
 				const from = ($location.state && $location.state.from) || "/webshop";
 				navigate(from, { replace: true });
 			} else {
