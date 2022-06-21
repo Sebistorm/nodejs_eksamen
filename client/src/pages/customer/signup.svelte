@@ -26,7 +26,6 @@
 		fetch("/api/customerSignup", fetchOptions)
 		.then(data =>  {
 			if(data.status === 200) {
-				console.log("succes")
 				toast.push('Success! The user has been created', {
 					theme: {
 						'--toastBackground': '#48BB78',
@@ -34,7 +33,7 @@
 					}
 				});
 			setTimeout(() => {
-				const from = ($location.state && $location.state.from) || "/customerlogin";
+				const from = ($location.state && $location.state.from) || "/customerLogin";
 				navigate(from, { replace: true });
 			}, 4100 );
 			} else if(data.status === 500) {

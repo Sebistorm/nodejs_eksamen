@@ -8,7 +8,6 @@
     onMount(async () => {
 		const response = await fetch("/api/clothes");
 		const { data } = await response.json();
-		console.log(data);
 		clothes = data;
 	});
 </script>

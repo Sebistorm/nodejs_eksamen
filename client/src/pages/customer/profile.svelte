@@ -13,6 +13,14 @@
         name = data[0].name;
 	});
 
+    async function deleteAccount() {
+        const response = await fetch(`/api/deleteCustomer/${$user.customerID}`);
+		const data  = await response.json();
+        if (data.status == 200) {
+            $user = null;
+        }
+    }
+
     
 </script>
 <div class="container" style="display: flex;">
@@ -28,6 +36,7 @@
         <div class="infoColumn">
             <p class="infoTitle">Name:</p><p class="info">{name}</p>
         </div>
+        <button on:click="{deleteAccount}">Delete Account</button>
         
     </div>
 
@@ -68,6 +77,22 @@
     .info {
         width: 70%;
         padding: 0px 0.5rem;
+    }
+
+    button {
+        margin-top: 1.5rem;
+        border: 2px solid #c30000;
+        outline: none;
+        color: white;
+        background-color: #c30000;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0.5rem;
+    }
+
+    button:hover {
+        background-color: transparent;
+        color: black;
     }
 
 </style>

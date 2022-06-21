@@ -27,7 +27,7 @@ router.post("/api/customerLogin", (req, res) => {
             // if the password does not match with the user
             if (!isSame) res.sendStatus(400)
         }
-    })
+    });
 });
 
 router.post("/api/customerSignup", async (req,res) => {
@@ -47,7 +47,7 @@ router.post("/api/customerSignup", async (req,res) => {
         if(results) {
             res.send({data: "customer succucfully signed up"});
         } 
-    })           
+    });           
 });
 
 router.get("/api/customerInfo/:id", (req, res) => {
@@ -58,6 +58,13 @@ router.get("/api/customerInfo/:id", (req, res) => {
         if(results) res.send({ data: results });
     })
 });
+
+router.get("/api/deleteCustomer/:id", (req, res) => {
+    connection.query("DELETE FROM customers WHERE id = ?", [req.params.id], function (error, results){
+        if (error) throw error;
+        if (results) res.send({ status: 200 });; 
+    });
+})
 
 
 

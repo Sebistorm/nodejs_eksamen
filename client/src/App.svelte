@@ -51,11 +51,7 @@
 						{/if}
 					</div>
 					<div class="right" style="display:flex; align-items:center;">
-						<Link to="adminLogin">admin login</Link>
-						{#if $admin}
-							<Link to="adminSignup">admin Signup</Link>
-						{/if}
-						
+											
 						{#if !$user}
 						<Link to="customerLogin">Customer Login</Link>
 						{/if}
@@ -69,10 +65,15 @@
 						{/if}
 
 						{#if $user}
-							<span style="color: white; cursor:pointer;" on:click={handleLogout}>Logout</span>
+							<span style="color: white; cursor:pointer; padding: 0px 10px;" on:click={handleLogout}>Logout</span>
 						{/if}
 
 						<Link to="cart">Cart</Link>
+
+						<Link to="adminLogin">admin login</Link>
+						{#if $admin}
+							<Link to="adminSignup">admin Signup</Link>
+						{/if}
 					</div>
 				</div>
 			</nav>
